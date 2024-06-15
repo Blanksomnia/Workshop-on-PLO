@@ -2,6 +2,7 @@
 using GamePrototype.Dungeon;
 using GamePrototype.Units;
 using GamePrototype.Utils;
+using levelDifficulty;
 
 namespace GamePrototype.Game
 {
@@ -23,10 +24,13 @@ namespace GamePrototype.Game
         private void Initialize()
         {
             Console.WriteLine("Welcome, player!");
-            _dungeon = DungeonBuilder.BuildDungeon();
-            Console.WriteLine("Enter your name");
-            _player = UnitFactoryDemo.CreatePlayer(Console.ReadLine());
+            _dungeon = DungeonBuilder.BuildDungeon();           
+            Console.WriteLine("choose the difficulty");
+            new LevelDifficulty().difficulty();
+            _player = UnitFactoryDemo.CreatePlayer();            
             Console.WriteLine($"Hello {_player.Name}");
+
+
         }
 
         private void StartGameLoop()
@@ -41,6 +45,7 @@ namespace GamePrototype.Game
                     Console.WriteLine("Game over!");
                     return;
                 }
+
                 DisplayRouteOptions(currentRoom);
                 while (true) 
                 {
@@ -48,6 +53,7 @@ namespace GamePrototype.Game
                     {
                         currentRoom = currentRoom.Rooms[direction];
                         break;
+
                     }
                     else 
                     {
@@ -66,6 +72,7 @@ namespace GamePrototype.Game
             if (currentRoom.Loot != null) 
             {
                 _player.AddItemToInventory(currentRoom.Loot);
+
             }
             if (currentRoom.Enemy != null) 
             {

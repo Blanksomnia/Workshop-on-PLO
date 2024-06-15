@@ -1,20 +1,61 @@
 ﻿using GamePrototype.Items.EconomicItems;
 using GamePrototype.Items.EquipItems;
 using GamePrototype.Units;
+using levelDifficulty;
 
 namespace GamePrototype.Utils
 {
     public class UnitFactoryDemo
     {
-        public static Unit CreatePlayer(string name)
+        public static Item _weapon;
+        public static Item _weaponrange;
+        public static Item _obsidianarmor;
+        public static Item _armour;
+        public static Unit _player;
+        public static Unit _goblin = new Goblin(GameConstants.Goblin, 20, 20, 2);
+
+        public static Unit CreatePlayer()
         {
-            var player = new Player(name, 30, 30, 6);
-            player.AddItemToInventory(new Weapon(10, 15, "Sword"));
-            player.AddItemToInventory(new Armour(10, 15, "Armour"));
+            var player = _player;
+            Console.WriteLine($"level {Armor.armour} = {(int)Armor.armour} (OR) {Armor.obsidianArmour} = {(int)Armor.obsidianArmour}");
+            if (Enum.TryParse<Armor>(Console.ReadLine(), out var ArmorVariantable))
+            {
+                Console.WriteLine($"armor - {ArmorVariantable}");
+            }
+            switch (ArmorVariantable)
+            {
+                case Armor.armour:
+                    {
+                        player.AddItemToInventory(_armour);
+                    }
+                    break;
+                case Armor.obsidianArmour:
+                    {
+                        player.AddItemToInventory(_obsidianarmor);
+                    }
+                    break;
+            }
+            Console.WriteLine($"level {Weapons.weapon} = {(int)Weapons.weapon} (OR) {Weapons.weapoRange} = {(int)Weapons.weapoRange}");
+            if (Enum.TryParse<Weapons>(Console.ReadLine(), out var WeaponVariatable))
+            {
+                Console.WriteLine($"weapon - {WeaponVariatable}");
+            }
+            switch (WeaponVariatable)
+            {
+                case Weapons.weapon:
+                    {
+                        player.AddItemToInventory(_weapon);
+                    }
+                    break;
+                case Weapons.weapoRange:
+                    {
+                        player.AddItemToInventory(_weaponrange);
+                    }
+                    break;
+            }
             player.AddItemToInventory(new HealthPotion("Potion"));
             return player;
         }
-
-        public static Unit CreateGoblinEnemy() => new Goblin(GameConstants.Goblin, 18, 18, 2);
+        public static Unit CreateGoblinEnemy() => _goblin;
     }
 }

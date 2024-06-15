@@ -1,4 +1,6 @@
 ﻿using GamePrototype.Items.EconomicItems;
+using GamePrototype.Items.EquipItems;
+using GamePrototype.Utils;
 
 namespace GamePrototype.Units
 {
@@ -31,18 +33,23 @@ namespace GamePrototype.Units
         public void ApplyDamage(uint damage)
         {
             var damageApplied = CalculateAppliedDamage(damage);
+            EquipItem equipItem= null;
             if (_health < damageApplied || (_health - damageApplied) <= 0) 
             {
                 _health = 0;
             }
             else 
             {
+                Console.WriteLine("FS");
                 _health -= damageApplied;
+                if (equipItem is Armour armour)
+                {
+                    var armor = armour.Durability;
+                    armor--;
+                }
             }
-            
             DamageReceiveHandler();
         }
-
         protected abstract uint CalculateAppliedDamage(uint damage);
         
         protected virtual void DamageReceiveHandler() { }

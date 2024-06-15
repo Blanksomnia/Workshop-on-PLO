@@ -52,7 +52,6 @@ namespace GamePrototype.Units
                 Health += healthPotion.HealthRestore;
             }
         }
-
         protected override uint CalculateAppliedDamage(uint damage)
         {
             if (_equipment.TryGetValue(EquipSlot.Armour, out var item) && item is Armour armour) 

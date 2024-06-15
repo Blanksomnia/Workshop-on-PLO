@@ -1,4 +1,5 @@
-﻿using GamePrototype.Units;
+﻿using GamePrototype.Items.EquipItems;
+using GamePrototype.Units;
 
 namespace GamePrototype.Combat
 {
